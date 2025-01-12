@@ -1,5 +1,9 @@
 # Wire Protocol Translation (mssql2pg) 
 
+<p align="center">
+  <img src="data/architecture.png" />
+</p> 
+
 Database conversion script from MS SQL Server to PostgreSQL.
  * The script works from command line.
  * Runs in python 2.x or 3.x
