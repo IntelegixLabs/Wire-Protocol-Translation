@@ -16,7 +16,7 @@ Database conversion script from MS SQL Server to PostgreSQL.
  * pymssql
  * sqlalchemy
 
-##Automatically Generated Usage Message
+## Automatically Generated Usage Message
 ```
 usage: mssql2pg.py [-h] [-p PASSWORD] [-d DESTINATION_DATABASE]
                    [-f OUTPUT_FILE_NAME] [-u] [-n RECORD_COUNT]
@@ -53,12 +53,12 @@ optional arguments:
                         will be processed.
 ```
 
-##Example:
+## Example:
 ```
 python3 mssql2pg.py SqlServer PgConversionExample user1 p4ssw0rd -f example.sql -d conversion_example -u
 ```
 
-##Output:
+## Output:
 ```
 --
 -- PREPARE DATABASE
