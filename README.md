@@ -1,4 +1,5 @@
-# mssql2pg
+# Wire Protocol Translation (mssql2pg) 
+
 Database conversion script from MS SQL Server to PostgreSQL.
  * The script works from command line.
  * Runs in python 2.x or 3.x
@@ -11,7 +12,7 @@ Database conversion script from MS SQL Server to PostgreSQL.
  * Generates sequences for ```IDENTITY``` fields
  * Scripts outputs progress, so you don’t need to guess if it’s working or froze up.
 
-##Dependencies
+## Dependencies
  * FreeTDS
  * pymssql
  * sqlalchemy
