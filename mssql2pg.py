@@ -6,6 +6,7 @@ import re
 import codecs
 import getpass
 
+
 class MsSql2Pg:
     def __init__(self):
         self.param_sql_session = None
@@ -153,11 +154,11 @@ Produces .sql script that can be executed with psql.
         #64 is default identifier limit in PostgreSQL
         result = name
         if (
-            len(set(result) & set(' .-&/()\\?\'')) > 0
-            or result[0] in '0123456789$'
-            or result.lower() in ('left', 'constraint', 'order', 'group')
+                len(set(result) & set(' .-&/()\\?\'')) > 0
+                or result[0] in '0123456789$'
+                or result.lower() in ('left', 'constraint', 'order', 'group')
         ):
-            result = '"{}"'.format(result[0:64-2])
+            result = '"{}"'.format(result[0:64 - 2])
         else:
             if self.param_underscore_identifiers:
                 result = self.underscore(result)[0:64]
@@ -220,7 +221,7 @@ Produces .sql script that can be executed with psql.
                 result = None
             else:
                 while result[0] == '(':
-                    result = result[1:len(result)-1].strip()
+                    result = result[1:len(result) - 1].strip()
 
                 if result == 'null':
                     result = None
@@ -356,7 +357,8 @@ ORDER BY TABLE_SCHEMA, TABLE_NAME, ORDINAL_POSITION
 
             table_column['translated_name'] = self.translate_a_name(row['COLUMN_NAME'])
             table_column['translated_type'] = self.translate_column_type(table_column)
-            table_column['translated_default'] = self.translate_default(table_column['translated_type'], table_column['default'])
+            table_column['translated_default'] = self.translate_default(table_column['translated_type'],
+                                                                        table_column['default'])
 
             if table_name not in result:
                 result[table_name] = []
@@ -511,7 +513,6 @@ ORDER BY t.name, ind.name, ind.index_id, ic.index_column_id
                     else:
                         index_name = 'index_{}'.format(index_name)
 
-
                     if index_name in new_indexes:
                         if new_indexes[index_name] == 0:
                             new_indexes[index_name] = 2
@@ -553,7 +554,7 @@ ORDER BY 1, 2, 3
                 table_name = self.translate_table_name(row["TABLE_SCHEMA"], row["TABLE_NAME"])
 
                 if table_name.endswith('"'):
-                    sequence_name = '{}_seq"'.format(table_name[0:len(table_name)-1])
+                    sequence_name = '{}_seq"'.format(table_name[0:len(table_name) - 1])
                 else:
                     sequence_name = '{}_seq'.format(table_name)
 
@@ -584,7 +585,7 @@ ORDER BY 1, 2, 3
     def progress_at_10_percent(self, current, total):
         result = 0
         for percent in (10, 20, 30, 40, 50, 60, 70, 80, 90):
-            if current*100/total <= percent and (current+1)*100/total > percent:
+            if current * 100 / total <= percent and (current + 1) * 100 / total > percent:
                 result = percent
 
         return result
@@ -665,7 +666,8 @@ CREATE EXTENSION "uuid-ossp";
             self.output_table_columns(table_name, table_columns)
             self.write_string(');')
 
-            pk = [x['column'] for x in self.constraints_pk_uk if x['table'] == table_name and x['type'] == 'PRIMARY KEY']
+            pk = [x['column'] for x in self.constraints_pk_uk if
+                  x['table'] == table_name and x['type'] == 'PRIMARY KEY']
             if len(pk) > 0:
                 self.write_string('ALTER TABLE {} ADD PRIMARY KEY ({});'.format(table_name, ', '.join(pk)))
 
@@ -747,7 +749,8 @@ CREATE EXTENSION "uuid-ossp";
 
         for index in self.indexes:
             index_columns = ', '.join(index['columns'])
-            index_definition = 'CREATE INDEX {} on {}({});'.format(index['index_name'], index['table_name'], index_columns)
+            index_definition = 'CREATE INDEX {} on {}({});'.format(index['index_name'], index['table_name'],
+                                                                   index_columns)
 
             self.write_string(index_definition)
 
@@ -766,9 +769,11 @@ CREATE EXTENSION "uuid-ossp";
 
         for sequence in self.sequences:
             s = self.sequences[sequence]
-            sequence_definition = 'ALTER SEQUENCE {} START WITH {};'.format(self.sequences[sequence]['sequence_name'], s['max_value']+1)
+            sequence_definition = 'ALTER SEQUENCE {} START WITH {};'.format(self.sequences[sequence]['sequence_name'],
+                                                                            s['max_value'] + 1)
 
             self.write_string(sequence_definition)
+
 
 converter = MsSql2Pg()
 converter.run()
