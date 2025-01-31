@@ -102,3 +102,13 @@ COPY ourfurnature (id, name) FROM stdin;
 -- UPDATING SEQUENCE START VALUES
 ALTER SEQUENCE ourfurnature_seq START WITH 4;
 ```
+
+### Steps to run FastAPI application:
+
+```sh 
+$ git clone https://github.com/IntelegixLabs/Wire-Protocol-Translation.git
+$ cd Wire-Protocol-Translation
+$ pip install -r requirements.txt
+$ cd SQL Query Converter Client Library Gen AI
+$ python app.py
+```
