@@ -1,0 +1,79 @@
+{
+	"info": {
+		"_postman_id": "7e17b4ad-2b3f-48ef-86ee-38371b03bb9f",
+		"name": "Wireless-Protocal-Translation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8661183",
+		"_collection_link": "https://base234.postman.co/workspace/base234~af5864f0-008a-4b77-a60d-689e781e5c6d/collection/8661183-7e17b4ad-2b3f-48ef-86ee-38371b03bb9f?action=share&source=collection_link&creator=8661183"
+	},
+	"item": [
+		{
+			"name": "http://localhost:5000/convert-query",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"source_dialect\": \"mysql\",\r\n    \"target_dialect\": \"oracle\",\r\n    \"query\": \"SELECT score, DENSE_RANK() OVER (ORDER BY score DESC) AS 'rank' FROM Scores\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/convert-query-gen-ai",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"convert-query-gen-ai"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/convert-query Copy",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"source_dialect\": \"mysql\",\r\n    \"target_dialect\": \"spark\",\r\n    \"query\": \"WITH baz AS (SELECT a, c FROM foo WHERE a = 1) SELECT f.a, b.b, baz.c, CAST(b.\\\"a\\\" AS REAL) d FROM foo f JOIN bar b ON f.a = b.a LEFT JOIN baz ON f.a = baz.a\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/convert-query-sqlglot",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"convert-query-sqlglot"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
